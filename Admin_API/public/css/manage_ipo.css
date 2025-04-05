@@ -1,0 +1,69 @@
+.register-btn {
+    background-color: #6c5ce7;
+    border: none;
+    padding: 8px 20px;
+}
+
+.register-btn:hover {
+    background-color: #5b4cc4;
+}
+
+.table th {
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+.bg-success-light {
+    background-color: #e6fff0 !important;
+}
+
+.bg-warning-light {
+    background-color: #fff8e6 !important;
+}
+
+.bg-danger-light {
+    background-color: #ffe6e6 !important;
+}
+
+.btn-link {
+    padding: 0;
+    margin: 0 5px;
+}
+
+.btn-primary {
+    background-color: #6c5ce7;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #5b4cc4;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+.page-link {
+    color: #6c5ce7;
+    padding: 8px 16px;
+}
+
+.page-item.active .page-link {
+    background-color: #6c5ce7;
+    border-color: #6c5ce7;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9ff;
+}

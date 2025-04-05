@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'IPO Admin Dashboard' %></title>
+    <!-- Include CSS -->
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+    <!-- Include Navbar -->
+    <%- include('partials/navbar') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <div class="top-bar">
+                <h1>IPO Admin Dashboard</h1>
+                <div class="user-info">
+                    <span>Hi, <%= user.name %></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page-Specific Content -->
+        <%- content %>
+    </div>
+
+    <!-- Include JavaScript -->
+    <script src="/js/nav.js"></script>
+</body>
+</html>

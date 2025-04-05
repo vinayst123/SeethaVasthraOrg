@@ -1,0 +1,415 @@
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet"
+/>
+<style>
+.api-card {
+  transition: transform 0.2s;
+}
+.api-card:hover {
+  transform: translateY(-5px);
+}
+.method-badge {
+  width: 70px;
+}
+.template-preview {
+  max-height: 200px;
+  overflow: auto;
+}
+.ejs-badge {
+  background-color: #8f5902;
+}
+.file-badge {
+  background-color: #4a4a4a;
+}
+</style>
+  <% layout("/layouts/boilerplate") %>
+  <div class="container py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>API Manager</h1>
+        <button class="btn btn-primary" id="createApiBtn">
+          ➕ Create New API
+        </button>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <div class="card text-white bg-primary">
+            <div class="card-body">
+              <h5 class="card-title">Total APIs</h5>
+              <h2 id="totalApis" class="card-text">0</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-success">
+            <div class="card-body">
+              <h5 class="card-title">Active APIs</h5>
+              <h2 id="activeApis" class="card-text">0</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+        id="apiContainer"
+      ></div>
+    </div>
+
+    <!-- API Modal -->
+    <div class="modal fade" id="apiModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">API Configuration</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="apiForm">
+              <div class="mb-3">
+                <label class="form-label">API Name</label>
+                <input type="text" class="form-control" id="apiName" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Endpoint</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="apiEndpoint"
+                  required
+                />
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                  <label class="form-label">HTTP Method</label>
+                  <select class="form-select" id="apiMethod" required>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Status Code</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="responseStatus"
+                    value="200"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Response Type</label>
+                  <select class="form-select" id="responseType" required>
+                    <option value="application/json">JSON</option>
+                    <option value="text/plain">Text</option>
+                    <option value="text/html">HTML</option>
+                    <option value="template">EJS Template</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3" id="fileResponseGroup">
+                <label class="form-label">Response File</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="responseFile"
+                  placeholder="response.json"
+                  required
+                />
+                <small class="text-muted"
+                  >File must exist in responses directory</small
+                >
+              </div>
+
+              <div class="mb-3 d-none" id="templateGroup">
+                <div class="mb-3">
+                  <label class="form-label">Template File</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="templateFile"
+                    placeholder="template.ejs"
+                    required
+                  />
+                  <small class="text-muted"
+                    >Must be in templates directory</small
+                  >
+                </div>
+                <label class="form-label">Template Content</label>
+                <textarea
+                  class="form-control"
+                  id="templateContent"
+                  rows="6"
+                ></textarea>
+              </div>
+
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="apiActive"
+                  checked
+                />
+                <label class="form-check-label">Active</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="saveApiBtn">
+              Save API
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const API_BASE = "http://localhost:3001/management/apis";
+      let currentEditId = null;
+      const modal = new bootstrap.Modal("#apiModal");
+      const apiForm = document.getElementById("apiForm");
+
+      document
+        .getElementById("responseType")
+        .addEventListener("change", function () {
+          const isTemplate = this.value === "template";
+          document
+            .getElementById("fileResponseGroup")
+            .classList.toggle("d-none", isTemplate);
+          document
+            .getElementById("templateGroup")
+            .classList.toggle("d-none", !isTemplate);
+        });
+
+      async function fetchAPIs() {
+        try {
+          const response = await fetch(API_BASE);
+          return await response.json();
+        } catch (error) {
+          showError("Failed to load APIs");
+          return [];
+        }
+      }
+
+      function renderAPIs(apis) {
+        const container = document.getElementById("apiContainer");
+        container.innerHTML = "";
+
+        document.getElementById("totalApis").textContent = apis.length;
+        document.getElementById("activeApis").textContent = apis.filter(
+          (api) => api.active
+        ).length;
+
+        apis.forEach((api) => {
+          const card = document.createElement("div");
+          card.className = "col";
+          card.innerHTML = `
+          <div class="card api-card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <h5 class="card-title">${api.name}</h5>
+                <div>
+                  ${
+                    api.responseType === "template"
+                      ? `
+                    <span class="badge ejs-badge">EJS</span>
+                  `
+                      : `<span class="badge file-badge">File</span>`
+                  }
+                  <span class="badge ${
+                    api.active ? "bg-success" : "bg-secondary"
+                  }">
+                    ${api.active ? "Active" : "Inactive"}
+                  </span>
+                  <span class="badge method-badge ${getMethodColor(
+                    api.method
+                  )}">
+                    ${api.method}
+                  </span>
+                </div>
+              </div>
+              <p class="card-text">
+                <strong>Endpoint:</strong> <code>${api.endpoint}</code><br>
+                <strong>Status:</strong> ${api.responseStatus}<br>
+                <strong>File:</strong> <code>${
+                  api.responseType === "template"
+                    ? api.templateFile
+                    : api.responseFile
+                }</code><br>
+                <strong>Type:</strong> ${api.responseType}
+              </p>
+              ${
+                api.responseType === "template"
+                  ? `
+                <div class="template-preview bg-dark text-white p-2 rounded">
+                  <pre>${api.templateContent}</pre>
+                </div>
+              `
+                  : ""
+              }
+              <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-sm btn-outline-primary edit-btn">Edit</button>
+                <button class="btn btn-sm btn-outline-danger delete-btn">Delete</button>
+                <a href="${API_BASE.replace("/management/apis", "")}${
+            api.endpoint
+          }"
+                  class="btn btn-sm btn-outline-success" target="_blank">Test</a>
+              </div>
+            </div>
+          </div>
+        `;
+
+          card.querySelector(".edit-btn").onclick = () => openEditModal(api);
+
+            async function deleteAPI(id) {
+              if (!confirm("Are you sure?")) return;
+              try {
+                await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
+                init();
+              } catch (error) {
+                showError("Delete failed");
+              }
+            }
+
+
+          card.querySelector(".delete-btn").onclick = () => deleteAPI(api._id);
+          container.appendChild(card);
+        });
+      }
+
+      async function init() {
+        const apis = await fetchAPIs();
+        renderAPIs(apis);
+      }
+
+      function getMethodColor(method) {
+        return {
+          GET: "bg-info",
+          POST: "bg-success",
+          PUT: "bg-warning",
+          DELETE: "bg-danger",
+        }[method];
+      }
+
+      function openEditModal(api) {
+        currentEditId = api._id;
+        document.getElementById("apiName").value = api.name;
+        document.getElementById("apiEndpoint").value = api.endpoint;
+        document.getElementById("apiMethod").value = api.method;
+        document.getElementById("responseStatus").value = api.responseStatus;
+        document.getElementById("responseType").value = api.responseType;
+        document.getElementById("responseFile").value = api.responseFile || "";
+        document.getElementById("templateFile").value = api.templateFile || "";
+        document.getElementById("templateContent").value =
+          api.templateContent || "";
+        document.getElementById("apiActive").checked = api.active;
+
+        document
+          .getElementById("responseType")
+          .dispatchEvent(new Event("change"));
+        modal.show();
+      }
+
+      async function saveAPI() {
+        const apiData = {
+          name: document.getElementById("apiName").value,
+          endpoint: document.getElementById("apiEndpoint").value,
+          method: document.getElementById("apiMethod").value,
+          responseStatus: parseInt(
+            document.getElementById("responseStatus").value
+          ),
+          responseType: document.getElementById("responseType").value,
+          responseFile: document.getElementById("responseFile").value,
+          templateFile: document.getElementById("templateFile").value,
+          templateContent: document.getElementById("templateContent").value,
+          active: document.getElementById("apiActive").checked,
+        };
+
+        try {
+          const validExtensions = {
+            "application/json": ".json",
+            "text/plain": ".txt",
+            "text/html": ".html",
+            template: ".ejs",
+          };
+
+          if (apiData.responseType === "template") {
+            if (!apiData.templateFile.endsWith(".ejs")) {
+              throw new Error("Template file must end with .ejs");
+            }
+          } else {
+            const expectedExt = validExtensions[apiData.responseType];
+            if (!apiData.responseFile.endsWith(expectedExt)) {
+              throw new Error(`File must end with ${expectedExt}`);
+            }
+          }
+
+          const url = currentEditId ? `${API_BASE}/${currentEditId}` : API_BASE;
+          const method = currentEditId ? "PUT" : "POST";
+
+          const response = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(apiData),
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error);
+          }
+
+          modal.hide();
+          init();
+        } catch (error) {
+          showError(error.message);
+        }
+      }
+
+      // async function deleteAPI(id) {
+      //   if (!confirm("Are you sure?")) return;
+      //   try {
+      //     await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
+      //     init();
+      //   } catch (error) {
+      //     showError("Delete failed");
+      //   }
+      // }
+
+      function showError(message) {
+        const alert = document.createElement("div");
+        alert.className = "alert alert-danger position-fixed top-0 end-0 m-3";
+        alert.textContent = message;
+        document.body.appendChild(alert);
+        setTimeout(() => alert.remove(), 3000);
+      }
+
+      document.getElementById("createApiBtn").addEventListener("click", () => {
+        currentEditId = null;
+        apiForm.reset();
+        document.getElementById("responseType").value = "application/json";
+        document
+          .getElementById("responseType")
+          .dispatchEvent(new Event("change"));
+        modal.show();
+      });
+
+      document.getElementById("saveApiBtn").addEventListener("click", saveAPI);
+      window.addEventListener("DOMContentLoaded", init);
+    </script>
+

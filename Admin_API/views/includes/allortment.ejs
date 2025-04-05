@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPO Allotment</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="container my-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center p-3 bg-light border rounded">
+      <input type="text" class="form-control w-25" placeholder="Search">
+    </div>
+
+    <!-- Main Content -->
+    <div class="text-center my-4">
+      <h1>IPO Allotment</h1>
+      <p>Track and view all IPO allotment details below.</p>
+    </div>
+
+    <!-- IPO Allotment Table -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>IPO Name</th>
+            <th>Allotment Status</th>
+            <th>Allotted Shares</th>
+            <th>Allotment Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ABC Technologies</td>
+            <td><span class="badge bg-success">Allotted</span></td>
+            <td>100</td>
+            <td>2025-01-20</td>
+          </tr>
+          <tr>
+            <td>XYZ Finserv</td>
+            <td><span class="badge bg-warning text-dark">Pending</span></td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>LMN Healthcare</td>
+            <td><span class="badge bg-danger">Rejected</span></td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle (Popper included) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

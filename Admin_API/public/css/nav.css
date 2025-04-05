@@ -1,0 +1,139 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Prevent overall page scrolling */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #1A1A2E;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.active {
+    left: -260px;
+}
+
+.logo {
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF6B6B;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a.active {
+    background-color: #2F3542;
+    border-left: 4px solid #FF6B6B;
+}
+
+/* Main Content Container */
+.main-content {
+    margin-left: 260px;
+    background-color: #F4F4F8;
+    padding: 20px;
+    height: 100vh;             /* Occupies full viewport height */
+    overflow: hidden;          /* Prevent overall scrolling here */
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.active ~ .main-content {
+    margin-left: 0;
+}
+
+/* Each content-section (template) */
+.content-section {
+    height: 100%;        /* Fill the main-content container */
+    overflow-y: auto;    /* Enable vertical scrolling if needed */
+    display: none;       /* Hide all by default */
+}
+
+.content-section.active {
+    display: block;      /* Only the active section is shown */
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: block;
+    position: fixed;
+    top: 0px;               /* Adjust vertical placement */
+    left: 0px;              /* Push to the right of the sidebar */
+    z-index: 1000;
+    cursor: pointer;
+    background-color: #1A1A2E; /* Matches the sidebar background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;      /* Matches the sidebar text color */
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+
+.upcomming {
+    margin-left: 300px;
+    margin-right: 45px;
+    background-color: #F4F4F8;
+    padding: 20px;
+    height: 100vh;             /* Occupies full viewport height */
+        /* Prevent overall scrolling here */
+    transition: margin-left 0.3s ease;
+}
+
+.subscription{
+    margin-left: 350px;
+    margin-right: 100px;
+    height: 100vh;
+}
+
+.allortment{
+    margin-left: 450px;
+    margin-right: 200px;
+}
+
+.manage-api{
+    margin-left: 300px;
+    margin-right: 40px;
+    height: 100vh;             /* Occupies full viewport height */
+
+}
+
+
+.dashboard{
+    margin-left: 300px;
+    margin-right: 40px;
+    height: 100vh;   
+}

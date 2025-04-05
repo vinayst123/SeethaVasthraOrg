@@ -1,0 +1,424 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+header .logo {
+    height: 30px;
+}
+
+header .nav-link {
+    color: #333;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-right: 20px;
+}
+
+header .nav-link:hover {
+    text-decoration: underline;
+}
+
+header .btn-primary {
+    background-color: #3366ff;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+header .btn-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.menu-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove border */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.menu-btn:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.menu-btn .menu-icon {
+    width: 100%; /* Fit the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image is fully visible */
+}
+
+
+/* Custom Breadcrumb Styles */
+.custom-breadcrumb {
+    background-color: transparent;
+    padding: 10px 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.custom-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: #ccc;
+}
+
+.custom-breadcrumb .breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.custom-breadcrumb .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.custom-breadcrumb .breadcrumb-item.active {
+    color: #6c757d;
+}
+
+/* Community Header Section */
+.community-header {
+    padding: 80px 120px; /* Add vertical spacing for the section */
+    display: flex;
+    align-items: center; /* Vertically align text and image */
+    justify-content: space-between;
+    text-align: left;
+}
+
+.community-text {
+    flex: 1;
+    padding-right: 15px; /* Reduce right padding for closer spacing */
+}
+
+.community-text h2 {
+    font-size: 3rem; /* Slightly larger heading */
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.community-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.community-text .btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+    border-radius: 8px;
+}
+
+.community-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.community-image img {
+    width: 85%; /* Reduce image size for better alignment */
+    max-width: 400px; /* Limit max size for the image */
+    height: auto;
+    border-radius: 10px;
+    border: 2px dashed #ddd; /* Dashed border */
+    padding: 40px; /* Increase padding inside the border for more space */
+    background-color: #f9f9f9; /* Subtle background color for contrast */
+}
+
+
+/* Features Section */
+.trading-club {
+    display: flex; /* Align text and cards horizontally */
+    align-items: center; /* Vertically align text and cards */
+    justify-content: space-between; /* Space out text and cards */
+    padding: 50px 120px; /* Add padding for the entire section */
+    gap: 70px; /* Space between text and cards */
+}
+
+.trading-club h3 {
+    font-size: 1.8rem; /* Slightly larger heading */
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    color: #1d1d1f; /* Slightly darker text color */
+}
+
+.trading-club ul {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none; /* Remove default bullet points */
+}
+
+.trading-club ul li {
+    display: flex; /* Align checkmark and text horizontally */
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1rem; /* Adjust text size */
+    color: #1d1d1f;
+}
+
+.trading-club ul li span {
+    font-size: 1.2rem; /* Larger checkmark */
+    color: #3366ff; /* Blue color for checkmark */
+    margin-right: 10px; /* Add spacing between checkmark and text */
+}
+
+/* Cards Section */
+.trading-club .cards {
+    display: flex;
+    flex-direction: row; /* Arrange cards horizontally */
+    gap: 20px; /* Add spacing between cards */
+    flex: 1; /* Let cards occupy remaining space */
+}
+
+.trading-club .card {
+    flex: 1; /* Make all cards equal size */
+    text-align: center;
+    background: #f8f9fa; /* Subtle background */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Slightly rounded corners */
+    padding: 20px;
+    transition: all 0.3s ease; /* Add hover effect */
+}
+
+.trading-club .card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+
+.trading-club .card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Team Bluestock Section */
+/* Team Bluestock Section */
+.team-bluestock {
+    text-align: center; /* Center align the title and subtitle */
+    padding: 120px 40px; /* Add 120px padding for the whole section */
+}
+
+.team-bluestock h3 {
+    font-size: 2rem; /* Larger title size */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.team-bluestock p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Flexbox Layout for Content */
+.team-content {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Vertically align text and image */
+    justify-content: space-between; /* Space out text and image */
+    gap: 40px; /* Add spacing between text and image */
+}
+
+.team-text {
+    flex: 1; /* Allow text to take equal space */
+    padding: 10px 120px;
+}
+
+.team-text h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.team-text ul {
+    list-style: none; /* Remove default bullet points */
+    
+}
+
+.team-text ul li {
+    display: flex; /* Align tick marks with text */
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #1d1d1f;
+}
+
+.team-text ul li span {
+    font-size: 1rem; /* Smaller circle size */
+    color: #3366ff; /* Blue color for the circle */
+    margin-right: 8px; /* Adjust spacing between circle and text */
+}
+/* Image Styling */
+.team-image {
+    flex: 1; /* Allow image to take equal space */
+    display: flex;
+    justify-content: center; /* Center the image */
+}
+
+.team-image img {
+    width: 90%; /* Adjust image width */
+    max-width: 400px; /* Limit max size */
+    height: auto;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Global Styles for Margin and Padding */
+section {
+    margin-bottom: 50px;
+    padding: 0 20px;
+}
+
+@media (max-width: 1024px) {
+    /* Adjust header layout */
+    header .container {
+        flex-direction: column; /* Stack logo and nav links vertically */
+        text-align: center;
+    }
+
+    header .menu-btn {
+        margin-top: 10px; /* Add spacing for the menu button */
+    }
+
+    /* Adjust Community Header Section */
+    .community-header {
+        flex-direction: column; /* Stack text and image */
+        padding: 60px 20px; /* Reduce padding for smaller screens */
+    }
+
+    .community-image {
+        margin-top: 30px; /* Add spacing between text and image */
+    }
+
+    /* Adjust Cards in Features Section */
+    .trading-club {
+        flex-direction: column; /* Stack text and cards */
+        gap: 30px; /* Adjust spacing */
+    }
+
+    .trading-club .cards {
+        flex-direction: column; /* Stack cards vertically */
+    }
+
+    /* Team Bluestock Section */
+    .team-content {
+        flex-direction: column; /* Stack text and image vertically */
+    }
+
+    .team-text {
+        padding: 0 20px; /* Reduce padding for text */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Adjust header layout */
+    header .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Adjust breadcrumb */
+    .custom-breadcrumb {
+        font-size: 12px; /* Reduce breadcrumb font size */
+        text-align: center;
+    }
+
+    /* Adjust Community Header Section */
+    .community-header {
+        padding: 40px 20px; /* Reduce padding further */
+        text-align: center;
+    }
+
+    .community-text h2 {
+        font-size: 2rem; /* Reduce heading size */
+    }
+
+    .community-text p {
+        font-size: 1rem; /* Adjust paragraph size */
+    }
+
+    .community-image img {
+        width: 100%; /* Let image fill the available space */
+    }
+
+    /* Adjust Features Section */
+    .trading-club {
+        padding: 40px 20px;
+    }
+
+    .trading-club ul {
+        font-size: 0.9rem; /* Smaller text for list */
+    }
+
+    .trading-club .cards {
+        gap: 10px; /* Reduce spacing between cards */
+    }
+
+    /* Adjust Team Bluestock Section */
+    .team-content {
+        padding: 20px; /* Reduce padding */
+    }
+
+    .team-text h4 {
+        font-size: 1.2rem; /* Smaller heading size */
+    }
+
+    .team-image img {
+        max-width: 100%; /* Ensure image fills the screen */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Header adjustments */
+    header .nav-link {
+        font-size: 14px; /* Reduce nav link font size */
+    }
+
+    header .btn-primary {
+        font-size: 12px; /* Smaller button text */
+    }
+
+    header .menu-btn {
+        font-size: 20px; /* Adjust icon size */
+    }
+
+    /* Community Header Section */
+    .community-text h2 {
+        font-size: 1.8rem; /* Further reduce heading size */
+    }
+
+    .community-text p {
+        font-size: 0.9rem; /* Reduce paragraph size */
+    }
+
+    /* Features Section */
+    .trading-club ul li {
+        font-size: 0.9rem; /* Adjust font size for list items */
+    }
+
+    .trading-club .cards .card {
+        padding: 15px; /* Reduce padding for cards */
+    }
+
+    /* Team Bluestock Section */
+    .team-content {
+        gap: 20px; /* Reduce gap between text and image */
+    }
+
+    .team-text ul li {
+        font-size: 0.9rem; /* Smaller text for list items */
+    }
+}

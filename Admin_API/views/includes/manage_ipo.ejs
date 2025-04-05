@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="/css/IPO_model_edit.css">
+
+<main class="main-content">
+    <section class="form-container">
+      <form id="ipo-form" action="/admin/ipo/new" method="POST">
+        <!-- Logo Section -->
+        <div class="form-group logo-section">
+          <label>Company Logo</label>
+          <div class="logo-actions">
+            <img src="/youtube.png" alt="Company Logo" class="company-logo">
+            <button type="button" class="upload-btn">Upload Logo</button>
+            <button type="button" class="delete-btn">Delete</button>
+          </div>
+          <input type="hidden" name="logo" value="/placeholder-logo.png">
+        </div>
+
+        <!-- IPO Details Grid -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" placeholder="Enter company name" name="companyName" required>
+          </div>
+          <div class="form-group">
+            <label>Price Band</label>
+            <input type="text" placeholder="Enter price band" name="priceBand" required>
+          </div>
+          <div class="form-group">
+            <label>Open</label>
+            <input type="date" name="open" required>
+          </div>
+          <div class="form-group">
+            <label>Close</label>
+            <input type="date" name="close" required>
+          </div>
+          <div class="form-group">
+            <label>Issue Size</label>
+            <input type="text" placeholder="Enter issue size" name="issueSize" required>
+          </div>
+          <div class="form-group">
+            <label>Issue Type</label>
+            <select name="issueType" required>
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+              <option value="rights">Rights</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Listing Date</label>
+            <input type="date" name="listingDate" required>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" required>
+              <option value="not-issued">Not Issued</option>
+              <option value="listed">Listed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>IPO Price</label>
+            <input type="text" placeholder="Enter IPO price" name="ipoPrice" required>
+          </div>
+          <div class="form-group">
+            <label>Listing Price</label>
+            <input type="text" placeholder="Enter listing price" name="listingPrice" required>
+          </div>
+          <div class="form-group">
+            <label>Listing Gain</label>
+            <input type="text" placeholder="Enter listing gain" name="listingGain" required>
+          </div>
+          <div class="form-group">
+            <label>Listed Date</label>
+            <input type="date" name="listedDate" required>
+          </div>
+          <div class="form-group">
+            <label>CMP</label>
+            <input type="text" placeholder="Enter CMP" name="cmp" required>
+          </div>
+          <div class="form-group">
+            <label>Current Return</label>
+            <input type="text" placeholder="Enter current return" name="currentReturn" required>
+          </div>
+          <div class="form-group">
+            <label>RHP</label>
+            <input type="url" placeholder="RHP PDF link" name="rhp" required>
+          </div>
+          <div class="form-group">
+            <label>DRHP</label>
+            <input type="url" placeholder="DRHP PDF link" name="drhp" required>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button type="submit" form="ipo-form" class="register">Register</button>
+          <button type="button" class="cancel" id="cancel">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <div id="success-message" style="display: none; text-align: center; font-size: 18px; color: green; margin-top: 20px;">
+      Your form has been successfully registered!
+    </div>
+</main>
+
+<script src="/js/IPOmodel(edit).js"></script>

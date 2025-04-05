@@ -1,0 +1,68 @@
+
+<link rel="stylesheet" href="/css/nav.css">
+    <!-- Hamburger Menu -->
+    <!-- <div class="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div> -->
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>Bluestock Fintech</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#dashboard" class="active" data-target="dashboard-section">Dashboard</a></li>
+            <li>
+                <h4 href="#manage-ipo" class="toggle-submenu" style="all: unset; margin-left: 20px;">Manage IPO</h4>
+                <ul class="submenu">
+                    <li><a href="#show-upcoming-ipo" data-target="show-upcoming-ipo-section">Show Upcoming IPO Details</a></li>
+                    <li>
+                        <a href="#add-upcoming-ipo" data-target="add-upcoming-ipo-section">Add Upcoming IPO Details</a>
+                      </li>                      
+                </ul>
+            </li>
+            <li><a href="#ipo-subscription" data-target="ipo-subscription-section">IPO Subscription</a></li>
+            <li><a href="#ipo-allotment" data-target="ipo-allotment-section">IPO Allotment</a></li>
+            <li><a href="#api-manager" data-target="api-manager-section">API Manager</a></li>
+            <li><a href="#help" data-target="help-section">Help</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+
+
+        <!-- Sections -->
+        <section id="dashboard-section" class="content-section active dashboard" >
+            <%- include("../includes/dashboard.ejs") %>
+        </section>
+
+        <section id="show-upcoming-ipo-section" class="content-section upcomming">
+            <%- include("../includes/upcomming_ipo.ejs") %>
+
+        </section>
+
+        <section id="add-upcoming-ipo-section" class="content-section add-fourm">
+            <%- include("../includes/manage_ipo.ejs") %>
+        </section>
+
+        <section id="ipo-subscription-section" class="content-section subscription">
+            <%- include("../includes/ipo_subscription.ejs") %>
+        </section>
+
+        <section id="ipo-allotment-section" class="content-section allortment">
+            <%- include("../includes/allortment.ejs") %>
+        </section>
+
+        <section id="api-manager-section" class="content-section manage-api">
+            <%- include("../includes/api.ejs") %>
+        </section>
+
+        <section id="help-section" class="content-section manage-api">
+            <%- include("../includes/admin_support.ejs") %>
+        </section>
+
+<script src="/js/nav.js"></script>
+
+

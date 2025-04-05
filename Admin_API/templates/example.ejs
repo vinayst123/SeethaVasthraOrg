@@ -1,0 +1,113 @@
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Upcomming IPO | Dashboard</h2>
+        <button class="btn btn-primary register-btn">Register IPO</button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Price Band</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>ISSUE SIZE</th>
+                    <th>ISSUE Type</th>
+                    <th>Listing Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th>Delete/View</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Adani Power</td>
+                    <td>₹ 129 - 136</td>
+                    <td>2024-06-03</td>
+                    <td>2024-06-05</td>
+                    <td>130.15 Cr.</td>
+                    <td>Book Built</td>
+                    <td>2024-06-10</td>
+                    <td><span class="badge bg-success-light text-success">Ongoing</span></td>
+                    <td><button class="btn btn-primary" onclick="updateIPO('Adani Power')">Update</button></td>
+                    <td>
+                        <button class="btn btn-link text-danger" onclick="deleteIPO('Adani Power')"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-link text-primary" onclick="viewIPO('Adani Power')"><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VBL LTD</td>
+                    <td>₹ 129 - 136</td>
+                    <td>2024-06-03</td>
+                    <td>2024-06-05</td>
+                    <td>130.15 Cr.</td>
+                    <td>Book Built</td>
+                    <td>2024-06-10</td>
+                    <td><span class="badge bg-warning-light text-warning">Comming</span></td>
+                    <td><button class="btn btn-primary" onclick="updateIPO('VBL LTD')">Update</button></td>
+                    <td>
+                        <button class="btn btn-link text-danger" onclick="deleteIPO('VBL LTD')"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-link text-primary" onclick="viewIPO('VBL LTD')"><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tata Motor</td>
+                    <td>₹ 129 - 136</td>
+                    <td>2024-06-03</td>
+                    <td>2024-06-05</td>
+                    <td>130.15 Cr.</td>
+                    <td>Book Built</td>
+                    <td>2024-06-10</td>
+                    <td><span class="badge bg-danger-light text-danger">New Listed</span></td>
+                    <td><button class="btn btn-primary" onclick="updateIPO('Tata Motor')">Update</button></td>
+                    <td>
+                        <button class="btn btn-link text-danger" onclick="deleteIPO('Tata Motor')"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-link text-primary" onclick="viewIPO('Tata Motor')"><i class="bi bi-eye"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><span class="page-link">...</span></li>
+            <li class="page-item"><a class="page-link" href="#">9</a></li>
+            <li class="page-item"><a class="page-link" href="#">10</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function updateIPO(companyName) {
+        alert(`Updating IPO for ${companyName}`);
+        window.location.href = 'update.html';
+    }
+
+    function deleteIPO(companyName) {
+        if (confirm(`Are you sure you want to delete the IPO for ${companyName}?`)) {
+            alert(`IPO for ${companyName} has been deleted`);
+            location.reload();
+        }
+    }
+
+    function viewIPO(companyName) {
+        alert(`Viewing details for ${companyName}`);
+    }
+
+</script>
+
+
+
+
+
+
+
+
+

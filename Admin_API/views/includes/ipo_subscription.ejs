@@ -1,0 +1,163 @@
+<!-- views/includes/ipo_subscription.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IPO Subscription</title>
+  <link rel="stylesheet" href="/css/ipo_subscription.css">
+  <script defer src="/js/ipo_subscription.js"></script>
+  <!-- Include Bootstrap CSS if not already included in a parent template -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h2>IPO Subscription</h2>
+  
+  <div class="search-bar my-3">
+    <input type="text" id="searchIPO" class="form-control" placeholder="Search IPO by company name..." onkeyup="filterIPO()">
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover" id="subscriptionTable">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Price Band</th>
+          <th>Open Date</th>
+          <th>Close Date</th>
+          <th>Issue Size</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="subscriptionTbody">
+        <!-- Dynamic rows will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination" id="subscriptionPagination">
+      <!-- Pagination buttons will be inserted here -->
+    </ul>
+  </nav>
+</div>
+
+<script>
+  // Helper: Format a date string into DD-MM-YYYY format
+  function formatDate(dateString) {
+    if (!dateString || dateString === "Not Issued") return "Not Issued";
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? "Not Issued" : date.toLocaleDateString('en-GB').replace(/\//g, '-');
+  }
+
+  // Helper: Return a CSS class for status (adjust as needed)
+  function getStatusClass(status) {
+    switch(status.toLowerCase()){
+      case 'ongoing': return 'ongoing';
+      case 'upcoming': return 'upcoming';
+      case 'new listed': return 'new-listed';
+      default: return 'secondary';
+    }
+  }
+
+  // Fetch and render IPO subscriptions dynamically
+  async function fetchSubscriptions(page = 1) {
+    try {
+      const response = await fetch(`/api/ipoSubscriptions?page=${page}`);
+      if (!response.ok) throw new Error('Failed to fetch IPO subscription data');
+      const data = await response.json();
+      
+      // Update table rows dynamically
+      const tbody = document.getElementById('subscriptionTbody');
+      let rows = '';
+      data.subscriptions.forEach(sub => {
+        rows += `<tr>
+          <td>${sub.companyName}</td>
+          <td>${sub.priceBand}</td>
+          <td>${formatDate(sub.openDate)}</td>
+          <td>${formatDate(sub.closeDate)}</td>
+          <td>${sub.issueSize}</td>
+          <td>
+            <span class="status ${getStatusClass(sub.status)}">
+              ${sub.status}
+            </span>
+          </td>
+          <td>
+            <button class="apply-btn btn btn-primary" onclick="applyIPO('${sub._id}')">Apply</button>
+          </td>
+        </tr>`;
+      });
+      tbody.innerHTML = rows;
+
+      // Update pagination UI
+      const pagination = document.getElementById('subscriptionPagination');
+      pagination.innerHTML = updateSubscriptionPaginationUI(data.currentPage, data.totalPages);
+    } catch (error) {
+      console.error('Error fetching subscriptions:', error);
+    }
+  }
+
+  // Generate pagination HTML based on current page and total pages
+  function updateSubscriptionPaginationUI(currentPage, totalPages) {
+    let html = '';
+
+    if (currentPage > 1) {
+      html += `<li class="page-item">
+                 <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a>
+               </li>`;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                 <a class="page-link" href="?page=${i}">${i}</a>
+               </li>`;
+    }
+
+    if (currentPage < totalPages) {
+      html += `<li class="page-item">
+                 <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a>
+               </li>`;
+    }
+
+    return html;
+  }
+
+  // Intercept pagination clicks for subscriptions
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchSubscriptions();
+
+    const pagination = document.getElementById('subscriptionPagination');
+    pagination.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const target = event.target.closest('a');
+      if (!target) return;
+      const url = new URL(target.href, window.location.origin);
+      const page = url.searchParams.get('page');
+      if (!page) return;
+      await fetchSubscriptions(page);
+    });
+  });
+
+  // Dummy function: Apply for an IPO subscription (implement as needed)
+  function applyIPO(id) {
+    // You might want to redirect, open a modal, or perform an AJAX action here
+    alert(`Applying for IPO subscription with id: ${id}`);
+  }
+
+  // Filter function: Filters the IPO table rows based on the search input
+  function filterIPO() {
+    const input = document.getElementById('searchIPO').value.toLowerCase();
+    const rows = document.querySelectorAll('#subscriptionTbody tr');
+    rows.forEach(row => {
+      const companyName = row.querySelector('td:first-child').textContent.toLowerCase();
+      row.style.display = companyName.indexOf(input) > -1 ? '' : 'none';
+    });
+  }
+</script>
+
+<!-- Optionally include Bootstrap JS if not already included -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

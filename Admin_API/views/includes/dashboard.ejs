@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPO Dashboard</title>
+  <!-- Bootstrap & Chart.js -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* (Your CSS styles here) */
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .dashboard-container {
+      max-width: 1200px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+    .circles-wrapper {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: auto;
+    }
+    .circle {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+    .circle:hover {
+      transform: scale(1.05);
+    }
+    .circle .number {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .circle .label {
+      font-size: 12px;
+      padding: 0 10px;
+    }
+    .total-ipo { 
+      background-color: #f8a64b;
+      left: 90px;
+      top: 0;
+      z-index: 3;
+    }
+    .ipo-gain { 
+      background-color: #44c4e6;
+      right: 0;
+      top: 80px;
+      z-index: 2;
+    }
+    .ipo-loss { 
+      background-color: #8382e0;
+      left: 0;
+      top: 80px;
+      z-index: 1;
+    }
+    .quick-links-section {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .quick-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #eef0f7;
+    }
+    .quick-link-item:last-child {
+      border-bottom: none;
+    }
+    .link-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      color: #444;
+    }
+    .visit-btn {
+      color: #6366f1;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .visit-btn:hover {
+      text-decoration: underline;
+    }
+    .chart-container {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+    }
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .legend-item:last-child {
+      margin-right: 0;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5 dashboard-container">
+    <h2 class="mb-4 text-start">Dashboard</h2>
+    <div class="row align-items-center text-center">
+      <!-- Left Column: IPO Info & Circles -->
+      <div class="col-md-4">
+        <h5>IPO Dashboard India</h5>
+        <p class="text-muted"><%= dashboardData.description %></p>
+        <p class="text-success fw-bold">↑ <%= dashboardData.ipoGain %> IPO in Gain</p>
+        <div class="circles-wrapper">
+          <div class="circle total-ipo">
+            <div class="number"><%= dashboardData.totalIPO %></div>
+            <div class="label">Total IPO</div>
+          </div>
+          <div class="circle ipo-gain">
+            <div class="number"><%= dashboardData.ipoGain %></div>
+            <div class="label">IPO in Gain</div>
+          </div>
+          <div class="circle ipo-loss">
+            <div class="number"><%= dashboardData.ipoLoss %></div>
+            <div class="label">IPO in Loss</div>
+          </div>
+        </div>
+      </div>
+      <!-- Middle Column: Quick Links -->
+      <div class="col-md-4">
+        <div class="quick-links-section">
+          <h5 class="text-start mb-4">Quick Links</h5>
+          <% dashboardData.quickLinks.forEach(function(link) { %>
+            <div class="quick-link-item">
+              <div class="link-content">
+                <div class="link-icon" style="background: <%= link.bgColor %>;">
+                  <%= link.shortName %>
+                </div>
+                <span><%= link.name %></span>
+              </div>
+              <a href="<%= link.url %>" class="visit-btn" target="_blank">Visit Now</a>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+      <!-- Right Column: Chart & Legend -->
+      <div class="col-md-4">
+        <h5>Main Board IPO</h5>
+        <p>From <%= dashboardData.boardStartDate %></p>
+        <div class="chart-container">
+          <canvas id="ipoChart"></canvas>
+        </div>
+        <div class="legend-container">
+          <% dashboardData.chartLegend.forEach(function(item) { %>
+            <div class="legend-item">
+              <div class="legend-dot" style="background-color: <%= item.color %>;"></div>
+              <span><%= item.label %> (<%= item.count %>)</span>
+            </div>
+          <% }); %>
+        </div>
+        <button class="btn btn-primary mt-3">View Report</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Inject dynamic chart data from dashboardData
+    var chartLabels = <%- JSON.stringify(dashboardData.chartLabels) %>;
+    var chartData = <%- JSON.stringify(dashboardData.chartData) %>;
+    var chartColors = <%- JSON.stringify(dashboardData.chartColors) %>;
+
+    var ctx = document.getElementById('ipoChart').getContext('2d');
+    var ipoChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          data: chartData,
+          backgroundColor: chartColors,
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              title: function(tooltipItems) {
+                return tooltipItems[0].label;
+              },
+              label: function(context) {
+                return context.label + ": " + context.raw;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

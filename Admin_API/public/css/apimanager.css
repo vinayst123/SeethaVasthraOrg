@@ -1,0 +1,154 @@
+body {
+    background-color: rgb(245, 245, 245);
+    margin: 0; /* Remove any default margin */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 0;
+    width: 100% !important ;
+    min-height: 100vh;
+  }
+  
+  .nav-item a {
+    font-size: 0.85rem; /* Adjust font size */
+    padding: 0.5rem 0.75rem; /* Maintain proper spacing */
+  }
+  
+  .nav {
+    padding-left: 2rem;
+  }
+  
+  .twoButton {
+    padding-left: 2rem;
+  }
+  
+  .twoButton .btn {
+    background-color: #f05537;
+  }
+  
+  .card {
+    width: 100%; /* Ensure cards take the full available width */
+    max-width: 542px; /* Prevent cards from growing too large */
+    height: 450px; /* You can keep the fixed height */
+    border-radius: 0px; /* Optional: Rounded corners */
+    font-size: large;
+    border-color: white;
+    box-shadow: none;
+  }
+  
+  .row-cols-md-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Ensure 3 cards in a row on medium screens */
+  }
+  
+  .col-4 {
+    margin-bottom: 12px; /* Increase the bottom margin for spacing between rows */
+  }
+  
+  .contain {
+    display: flex !important; /* Use flexbox for layout */
+    justify-content: center !important; /* Center the contents horizontally */
+    text-align: center !important;
+  }
+  
+  .container {
+    max-width: 1200px; /* Adjust max width to prevent it from stretching */
+    width: 100%;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Contain content inside */
+  }
+  .accordion {
+    font-weight: bolder;
+    margin-top: 20px;
+    /* Add space above the accordion */
+  }
+  .accordion-item {
+    margin-bottom: 25px;
+    min-height: 80px;
+  }
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+  
+  .accordion-button {
+    font-weight: bolder;
+    font-size: large;
+  }
+  
+  .accordion-button.collapsed {
+    font-weight: bolder;
+    font-size: large;
+  }
+  
+  h2 {
+    margin-bottom: 1%; /* Add spacing below the heading */
+  }
+  
+  .accordion {
+    max-width: 95%; /* Adjust this value */
+    margin: 0 auto; /* Center the accordion */
+  }
+  
+  .faq-title {
+    margin-left: 3.5rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+  }
+  
+  @media (max-width: 2000px) {
+    .card {
+      max-width: 455px;
+      font-size: medium;
+      height: 400px !important;
+      /* Smaller card width for tablets */
+    }
+    .hello {
+      column-gap: 0px; /* Horizontal space between columns */
+      row-gap: 30px;
+    }
+    .row-cols-md-3 {
+      margin: 1%;
+    }
+    .container-fluid {
+      margin: 2%;
+    }
+    .main-title {
+      margin: 1%;
+    }
+    .faq-title {
+      margin-left: 2.5%;
+    }
+    .faq-container {
+      margin: 2%;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .card {
+      max-width: 325px;
+      font-size: small;
+      /* Smaller gap for tablets */
+  
+      /* Smaller card width for tablets */
+    }
+    .row-cols-md-3 {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      /* Ensure 3 cards in a row on medium screens */
+    }
+  }
+  .btnA {
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .card-btn {
+    margin: 0 !important;
+    padding: 0%;
+    gap: 0 !important;
+    padding-top: 2%;
+  }
+  
+  .all-title {
+    padding-left: 1%;
+  }
